@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+}
+
+.slider-container {
+  width: 100%;
+  position: relative;
+  border: 1px solid #e3e3e3;
+  padding: 2em;
+  box-sizing: border-box;
+
+  .controls {
+    i {
+      position: relative;
+      z-index: 10;
+      color: #fff;
+    }
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+
+    &.show {
+      opacity: 100;
+    }
+
+    img {
+        width: 100%;
+    }
+  }
+}
