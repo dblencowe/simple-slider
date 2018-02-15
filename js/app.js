@@ -1,9 +1,11 @@
 class Slider {
 
-    constructor(sliderId) {
+    constructor(sliderId, options = {}) {
         this.slider = document.getElementById(sliderId);
         this.slides = this.slider.querySelectorAll('.slide');
+        this.options = options;
         this.setSliderTimeout();
+
         // Setup events
         this.slider.querySelectorAll('.next').forEach(button => {
             button.addEventListener('click', this.nextSlide.bind(this));
@@ -15,8 +17,10 @@ class Slider {
     }
 
     setSliderTimeout() {
+        if (typeof options.autoslide !== 'undefined' && options.autoslide === true) {
+        }
         clearInterval(this.slideInterval);
-        this.slideInterval = setInterval(this.nextSlide, 5000);
+        this.slideInterval = setInterval(this.nextSlide.bind(this), 5000);
     }
 
     nextSlide() {
