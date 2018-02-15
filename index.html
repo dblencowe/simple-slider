@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-    <title>Slider Tech Test</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  </head>
-  <body>
+    <title>Dauntless Tech Test</title>
+    <link rel="stylesheet" type="text/css" href="dist/app.css">
+</head>
+<body>
+<div id="slider" class="slider">
+    <div class="controls">
+        <button type="button" name="button" class="next">Next</button>
+        <button type="button" name="button" class="prev">Previous</button>
+    </div>
 
-  <div id="slider"></div>
-
-  <script src="js/bundle.js"></script>
-  </body>
+    <div class="slide show">
+        <img src="https://dummyimage.com/1920x1080/000/fff" alt="Slide One">
+    </div>
+    <div class="slide">
+        <img src="https://dummyimage.com/1920x1080/c246c2/fff" alt="Slide Two">
+    </div>
+    <div class="slide">
+        <img src="https://dummyimage.com/1920x1080/28bd7f/fff" alt="Slide Three">
+    </div>
+    <div class="slide">
+        <img src="https://dummyimage.com/1920x1080/bda22a/fff" alt="Slide Four">
+    </div>
+</div>
+<script src="dist/app.js"></script>
+</body>
 </html>

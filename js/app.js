@@ -1,36 +1,59 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import SliderComponent from "./SliderComponent"
-import SliderLogic from "./SliderComponent"
+class Slider {
 
-export default class SliderData extends React.Component {
-  render() {
+    constructor(sliderId) {
+        this.slider = document.getElementById(sliderId);
+        this.slides = this.slider.querySelectorAll('.slide');
+        this.setSliderTimeout();
+        // Setup events
+        this.slider.querySelectorAll('.next').forEach(button => {
+            button.addEventListener('click', this.nextSlide.bind(this));
+        });
 
-    const title = "Welcome, Ben!";
-    const SlideSources = [
-      {
-        slide: 1,
-        url: "img/slide-1.jpg",
-        title: "Test Slide One"
-      },
-      {
-        slide: 2,
-        url: "img/slide-2.jpg",
-        title: "Test Slide Two"
-      },
-      {
-        slide: 3,
-        url: "img/slide-3.jpg",
-        title: "Test Slide Three"
-      },
-    ];
+        this.slider.querySelectorAll('.prev').forEach(button => {
+            button.addEventListener('click', this.prevSlide.bind(this));
+        });
+    }
 
-    return (
-      <div>
-        <SliderComponent title={title} SlideSources={SlideSources} />
-      </div>
-    );
-  }
+    setSliderTimeout() {
+        clearInterval(this.slideInterval);
+        this.slideInterval = setInterval(this.nextSlide, 5000);
+    }
+
+    nextSlide() {
+        this.setSliderTimeout();
+        let currentSlide = this.getCurrentSlide();
+        if (currentSlide < (this.slides.length - 1)) {
+            this.slides[currentSlide].classList.remove('show');
+            this.slides[++currentSlide].classList.add('show');
+        } else {
+            this.slides[currentSlide].classList.remove('show');
+            this.slides[0].classList.add('show');
+        }
+    }
+
+    prevSlide() {
+        this.setSliderTimeout();
+        let currentSlide = this.getCurrentSlide;
+        if (currentSlide > 0) {
+            this.slides[currentSlide].classList.remove('show');
+            this.slides[--currentSlide].classList.add('show');
+        } else {
+            this.slides[currentSlide].classList.remove('show');
+            this.slides[this.slides.length - 1].classList.add('show');
+        }
+    }
+
+    getCurrentSlide() {
+        for (let index = 0; index < this.slides.length; index ++) {
+            if (this.isVisible(this.slides[index]) === true) {
+                return index;
+            }
+        }
+    }
+
+    isVisible(el) {
+        return el.className && new RegExp("(\\s|^)show(\\s|$)").test(el.className);
+    }
 }
 
-ReactDOM.render(<SliderData />, document.getElementById('slider'))
+let slider = new Slider('slider');

@@ -1,20 +1,51 @@
+'use strict';
+
+var path = require('path');
+var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
-  entry: './js/app.js',
-  output: {
-    path: __dirname,
-    filename: 'js/bundle.js'
-  },
-  watch: true,
-  module: {
-    loaders: [
-      {
-        test: /.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
-  },
-}
+    entry: [
+        './js/app.js',
+        './scss/app.scss'
+    ],
+
+    output: {
+        path: __dirname,
+        filename: 'dist/app.js'
+    },
+
+    plugins: [
+        new ExtractTextPlugin('dist/app.css'),
+    ],
+
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: [
+                    'babel-loader'
+                ]
+            },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        'css-loader',
+                        'sass-loader'
+                    ]
+                })
+            }
+        ]
+    },
+    watch: true,
+    stats: {
+        // Colored output
+        colors: true
+    },
+
+    // Create Sourcemaps for the bundle
+    devtool: 'source-map'
+};
